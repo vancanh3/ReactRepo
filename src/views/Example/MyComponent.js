@@ -1,49 +1,43 @@
 import React, { Fragment } from "react";
+import ChildComponent from "./ChildComponent";
+import AddComponent from "./AddComponent";
+
 
 class MyComponent extends React.Component {
+   
     state = {
-        firstname: '',
-        lastname: ''
+        arrJobs: [
+            {id: 'Job1', title: 'dev', salary: '500'},
+            {id: 'Job2', title: 'ba', salary: '100'}
+        ]
     }
-    // handleOnChangeName = (event) => {
-    //     console.log(event.target.value, 'event target: ', event.target, 'event object: ', event)
-    //     this.setState({
-    //         name: event.target.value
-    //     })
-    // }
-
-    // handleClickButton = () => {
-    //     alert('click me')
-    // }
-
-    handleChangeFirstName = (event) => {
+   
+    addNewJob = (job) => {
         this.setState({
-            firstname: event.target.value
+            arrJobs: [...this.state.arrJobs, job]
         })
     }
 
-    handleChangeLastName = (event) => {
+    deleteAJob = (idJob) =>{
+        let currentJobs = this.state.arrJobs.filter(item => item.id !== idJob);
         this.setState({
-            lastname: event.target.value
+            arrJobs: currentJobs
         })
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        console.log("Data input: ", this.state);
+    componentDidUpdate(prevProps, prevState){
+        console.log('run did updateL ', 'prev state: ', prevState, ' current state: ', this.state);
+    }
+
+    componentDidMount(){
+        console.log('Run component did mount');
     }
 
     render() {
-        let name = 'Adam';
         return (
             <React.Fragment>
-                <form>
-                    <label htmlFor="fname">First name:</label><br />
-                    <input type="text" name="fname" value={this.state.firstname} onChange={(event) => this.handleChangeFirstName(event)} /><br />
-                    <label htmlFor="lname">Last name:</label><br />
-                    <input type="text" name="lname" value={this.state.lastname} onChange={(event) => this.handleChangeLastName(event)} />
-                    <input type="submit" value="Submit" onClick={(event) => this.handleSubmit(event)} />
-                </form>
+                <AddComponent addNewJob = {this.addNewJob}/>
+                <ChildComponent  arrJobs={this.state.arrJobs} deleteAJob={this.deleteAJob}/>
             </React.Fragment>
 
         );
