@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.scss';
 import MyComponent from './Example/MyComponent';
-
+import ListTodo from './Todos/ListTodo';
+import Hobbies from './DoItMySelf/Hobbies'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -12,8 +15,19 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
 
-        <MyComponent />
+        <ListTodo />
       </header>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
